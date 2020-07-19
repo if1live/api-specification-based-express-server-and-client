@@ -1,5 +1,12 @@
 # API specification based express server and client
 
+## run
+
+```bash
+npm i
+npm run start
+```
+
 ## API spec
 
 ```ts
@@ -44,4 +51,16 @@ const createUserController = (): Controller<typeof userApi> => ({
 const userRouter = express.Router();
 const userController = createUserController();
 registerApi(userRouter, userApi.get, userController.get);
+```
+
+## demo
+
+```ts
+export const app = express();
+app.use('/user/', userRouter);
+
+app.listen(3000, async () => {
+	const client = new UserClient('http://127.0.0.1:3000');
+	console.log('get', await client.get({ user_uid: '1' }));
+});
 ```
